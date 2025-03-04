@@ -40,18 +40,26 @@ class AuthController extends Controller
 
     // Iniciar sesión
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('libros');
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = Auth::user();
+
+        // Verifica si el usuario tiene el rol de escritor (rol = 3)
+        if ($user->role_id == 3) {
+            return redirect()->route('escritor.inicio'); // Redirige a InicioEscritor
         }
 
-        return back()->with('error', 'Credenciales incorrectas');
+        return redirect()->route('libros'); // Redirige a la página de libros por defecto
     }
+
+    return back()->with('error', 'Credenciales incorrectas');
+}
+
 
     // Cerrar sesión
     public function logout()

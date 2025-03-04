@@ -3,7 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\LibrosAdminController;
 
+Route::middleware('auth')->group(function () {
+    Route::resource('libros', LibrosAdminController::class);
+    
+});
+
+Route::get('/escritor', [LibrosAdminController::class, 'InicioEscritor'])->name('escritor.inicio');
 Route::get('/libros', [LibroController::class, 'index'])->name('libros');
 Route::get('/', [LibroController::class, 'index'])->name('libros.index');
 
