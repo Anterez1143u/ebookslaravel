@@ -1,0 +1,148 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #324e3d;
+  
+}
+
+
+h2{
+    color: #fffdfd;
+}
+.btn-primary {
+    background: #021809;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.input-group {
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #fdf6f6;
+    display: block;
+    margin-bottom: 5px;
+}
+.input-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.btn:hover {
+    background: #0056b3;
+}
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+    color: #E3F4F4 !important; /* Verde grisáceo */
+    padding: 8px 15px;
+    transition: color 0.3s ease-in-out, transform 0.2s;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #A4D0A4 !important; /* Verde claro */
+    transition: color 0.3s;
+}
+.sidebar a:hover { 
+    background: #495057; 
+}
+
+/* Contenido principal */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+/* Estilos para formularios */
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* Estilos para tablas */
+.table {
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table th {
+    background: #343a40;
+    color: white;
+}
+
+.table img {
+    border-radius: 5px;
+}
+ 
+.navbar {
+    background-color: #183D3D !important; /* Verde oscuro */
+    padding: 10px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.form-control {
+    border: 1px solid #95d5b2; /* Borde verde claro */
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #52b788;
+    box-shadow: 0 0 5px rgba(82, 183, 136, 0.5);
+}
+
+/* Botones */
+.btn-success {
+    background-color: #40916c;
+    border-color: #40916c;
+}
+
+.btn-success:hover {
+    background-color: #2d6a4f;
+}
+
+.btn-secondary {
+    background-color: #95d5b2;
+    border-color: #95d5b2;
+    color: #1b4332;
+}
+
+.btn-secondary:hover {
+    background-color: #74c69d;
+}
+
+/* Mensajes de error */
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+.form-label{
+    color: white;
+}
