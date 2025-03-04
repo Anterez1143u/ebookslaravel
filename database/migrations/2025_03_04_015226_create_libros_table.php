@@ -9,10 +9,12 @@ return new class extends Migration {
         Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->text('descripcion');
-            $table->string('imagen')->nullable();
-            $table->decimal('precio', 8, 2);
-            $table->foreignId('autor_id')->constrained('users')->onDelete('cascade');
+            $table->text('descripcion')->nullable();
+            $table->foreignId('autor_id')->constrained('users')->onDelete('cascade'); // Autor basado en users
+            $table->string('categoria'); // Puede ser un ID si hay una tabla categorias
+            $table->string('portada')->nullable(); // Imagen de portada
+            $table->string('archivo_pdf'); // PDF del libro
+            $table->decimal('precio', 10, 2)->default(0.00); // Precio del libro
             $table->timestamps();
         });
     }
