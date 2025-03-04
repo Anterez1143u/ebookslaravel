@@ -8,10 +8,11 @@
         @foreach($libros as $libro)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="{{ $libro->imagen }}" class="card-img-top" alt="{{ $libro->titulo }}">
+                <img src="{{ asset('storage/' . $libro->portada) }}" class="card-img-top" alt="Portada del libro">
+
                     <div class="card-body">
                         <h5 class="card-title">{{ $libro->titulo }}</h5>
-                        <p class="card-text text-muted">{{ $libro->autor }}</p>
+                        <p class="card-text text-muted">{{ $libro->autor->name }}</p>
                         <button class="btn btn-danger w-100">Ver Detalles</button>
                     </div>
                 </div>
