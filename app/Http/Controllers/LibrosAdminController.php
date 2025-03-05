@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class LibrosAdminController extends Controller
 {
-  
-
     // 📌 Vista principal del escritor
     public function InicioEscritor()
     {
@@ -53,12 +51,13 @@ class LibrosAdminController extends Controller
         return redirect()->route('escritor.inicio')->with('success', 'Libro agregado correctamente');
     }
 
-    // 📌 Ver un libro (opcional)
+    // 📌 Ver un libro
     public function show($id)
-    {
-        $libro = Libro::where('id', $id)->where('autor_id', auth()->id())->firstOrFail();
-        return view('escritor.show', compact('libro'));
-    }
+{
+    $libro = Libro::with(['autor', 'calificaciones', 'calificaciones.usuario'])->findOrFail($id);
+    return view('escritor.show', compact('libro'));
+}
+
 
     // 📌 Formulario para editar un libro
     public function edit($id)
