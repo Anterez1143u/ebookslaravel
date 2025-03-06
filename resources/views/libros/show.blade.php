@@ -19,10 +19,9 @@
                     <p class="card-text"><strong>Descripción:</strong> {{ $libro->descripcion }}</p>
                     <p class="card-text"><strong>Precio:</strong> <span class="text-success">${{ number_format($libro->precio, 2) }}</span></p>
 
-                    {{-- Calificación Promedio --}}
                     <p class="card-text">
                         <strong>Calificación:</strong> 
-                        @if($libro->calificaciones && $libro->calificaciones->count() > 0)
+                        @if($libro->calificaciones->count() > 0)
                             <span class="text-warning">
                                 ⭐ {{ number_format($libro->calificaciones->avg('calificacion'), 1) }}/5
                             </span>
@@ -33,9 +32,22 @@
 
                     <div class="mt-4">
                         <a href="{{ route('libros') }}" class="btn btn-outline-secondary">Volver</a>
-                        @if($libro->archivo_pdf)
-                            <a href="{{ asset('storage/' . $libro->archivo_pdf) }}" class="btn btn-primary" target="_blank">Ver Libro</a>
-                        @endif
+
+                        <form action="{{ route('carrito.agregar') }}" method="POST" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="libro_id" value="{{ $libro->id }}">
+                            <input type="hidden" name="formato" value="digital">
+                            <input type="hidden" name="cantidad" value="1">
+                            <button type="submit" class="btn btn-primary">Comprar Digital</button>
+                        </form>
+
+                        <form action="{{ route('carrito.agregar') }}" method="POST" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="libro_id" value="{{ $libro->id }}">
+                            <input type="hidden" name="formato" value="físico">
+                            <input type="hidden" name="cantidad" value="1">
+                            <button type="submit" class="btn btn-success">Comprar Físico</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,11 +57,11 @@
     {{-- Sección de Comentarios --}}
     <div class="mt-5">
         <h3>Comentarios</h3>
-        @if($libro->calificaciones && $libro->calificaciones->count() > 0)
+        @if($libro->calificaciones->count() > 0)
             <ul class="list-group">
                 @foreach($libro->calificaciones as $comentario)
                     <li class="list-group-item">
-                        <strong>{{ $comentario->usuario->name ?? 'Anónimo' }}</strong> 
+                        <strong>{{ $comentario->usuario->name }}</strong> 
                         <small class="text-muted">({{ $comentario->created_at->format('d/m/Y') }})</small>
                         <p>{{ $comentario->comentario }}</p>
                     </li>

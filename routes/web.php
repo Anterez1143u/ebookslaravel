@@ -4,6 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\LibrosAdminController;
+use App\Http\Controllers\CarritoController;
+
+
+
+
+
+
+Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/libros', [LibrosAdminController::class, 'index'])->name('libros.admin');
