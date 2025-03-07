@@ -12,4 +12,8 @@ class LibroController extends Controller
         $libros = Libro::all(); // Obtiene todos los libros de la base de datos
         return view('libros.index', compact('libros'));
     }
+    public function show(Libro $libro) {
+        return view('libros.detalles', compact('libro'));
+    }
+
 }

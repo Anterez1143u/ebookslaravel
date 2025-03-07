@@ -15,12 +15,20 @@
                     </a>
                 </li>
                 @auth
+                
                 <li class="nav-item">
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
-        @csrf
-        <button type="submit" class="nav-link text-danger bg-transparent border-0">
-            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-        </button>
+                    <a class="nav-link" href="{{ route('carrito.index') }}">
+                        <i class="bi bi-cart3"></i> Carrito
+                    </a>
+                </li>
+                <li class="nav-item">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
+    @csrf
+    <button type="submit" class="nav-link text-danger bg-transparent border-0">
+        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+    </button>
+</form>
+
         @else
         
         <li class="nav-item">
