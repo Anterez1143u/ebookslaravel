@@ -15,7 +15,11 @@
                     </a>
                 </li>
                 @auth
-                
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('pedidos.index') }}">
+                        <i class="bi bi-list-check"></i> Mis Pedidos
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('carrito.index') }}">
                         <i class="bi bi-cart3"></i> Carrito

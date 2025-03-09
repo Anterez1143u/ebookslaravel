@@ -61,6 +61,8 @@
             </form>
             <a href="{{ route('libros.index') }}" class="btn btn-secondary">Seguir Comprando</a>
             <a href="{{ route('checkout') }}" class="btn btn-success">Finalizar Compra</a>
+
+           
         </div>
 
     @else
