@@ -7,7 +7,7 @@ use App\Models\Pedido;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\User;
 class PedidoController extends Controller
 {
     public function index()
@@ -63,5 +63,55 @@ class PedidoController extends Controller
     $pedido = Pedido::with('detalles.libro', 'user')->findOrFail($id);
     return view('pedidos.detalles_pedido', compact('pedido'));
 }
+public function asignarRepartidorGuardar(Request $request, $id)
+{
+    $request->validate([
+        'repartidor_id' => 'required|exists:users,id',
+        'fecha_entrega' => 'required|date',
+    ]);
+
+    $pedido = Pedido::findOrFail($id);
+    $pedido->repartidor_id = $request->repartidor_id;
+    $pedido->fecha_entrega = $request->fecha_entrega;
+    $pedido->estado = 'Asignado a Repartidor';
+    $pedido->save();
+
+    return redirect()->route('admin.asignarRepartidor')->with('success', 'Repartidor asignado correctamente.');
+}
+
+public function vistaAsignarRepartidor()
+{
+    $pedidos = Pedido::with('user', 'detalles')->get();
+    $repartidores = User::where('role_id', '4 ')->get();
+
+    return view('admin.asignar_repartidor', compact('pedidos', 'repartidores'));
+}
+
+public function misPedidos()
+{
+    $repartidorId = auth()->id(); // Obtiene el ID del usuario autenticado (repartidor)
+
+    $pedidos = Pedido::where('repartidor_id', $repartidorId)
+                    ->with(['user', 'detalles.libro'])
+                    ->get();
+
+    return view('repartidores.mis_pedidos', compact('pedidos'));
+}
+public function actualizarEstado(Request $request, $id)
+{
+    $pedido = Pedido::findOrFail($id);
+
+    // Verificar que el pedido pertenece al repartidor autenticado
+    if ($pedido->repartidor_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'No tienes permiso para modificar este pedido.');
+    }
+
+    // Actualizar estado
+    $pedido->estado = $request->estado;
+    $pedido->save();
+
+    return redirect()->back()->with('success', 'Estado actualizado correctamente.');
+}
+
 
 }

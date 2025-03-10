@@ -53,8 +53,15 @@ class AuthController extends Controller
         if ($user->role_id == 3) {
             return redirect()->route('escritor.inicio'); // Redirige a InicioEscritor
         }
-
-        return redirect()->route('libros'); // Redirige a la página de libros por defecto
+        if ($user->role_id == 2) {
+            return redirect()->route('admin.index'); // Redirige a InicioEscritor
+        }
+        if ($user->role_id == 4) {
+            return redirect()->route('repartidor.misPedidos'); // Redirige a InicioEscritor
+        }
+        if ($user->role_id == 1) {
+        return redirect()->route('libros'); 
+        }// Redirige a la página de libros por defecto
     }
 
     return back()->with('error', 'Credenciales incorrectas');

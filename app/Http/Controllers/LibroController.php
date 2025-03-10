@@ -15,5 +15,13 @@ class LibroController extends Controller
     public function show(Libro $libro) {
         return view('libros.detalles', compact('libro'));
     }
-
+    public function indexAdmin()
+    {
+        $libros = Libro::all(); // Obtiene todos los libros de la base de datos
+        return view('admin.libros', compact('libros'));
+    }
+    public function Mostrar(Libro $libro) {
+        return view('Admin.detallesAdmin', compact('libro'));
+    }
+    
 }

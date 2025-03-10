@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/escritor.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 
 <body>
     <nav class="navbar ">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('escritor.inicio') }}">Panel del Escritor</a>
+            <a class="navbar-brand">Panel del Administrador</a>
             <li class="nav-item">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
         @csrf
@@ -19,8 +19,6 @@
             <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
         </button>
     </form>
-    <a href="{{ route('escritor.resenas') }}" class="btn btn-primary">Ver Reseñas de Mis Libros</a>
-
 </li>
 
         </div>

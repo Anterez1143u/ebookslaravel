@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CalificacionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LibroController;
@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\PedidoController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EscritorController; 
 Auth::routes();
 
 //Creacion de libros
@@ -22,7 +23,7 @@ Route::get('/escritor', [LibrosAdminController::class, 'InicioEscritor'])->name(
 // libros cliente
 Route::get('/libros', [LibroController::class, 'index'])->name('libros');
 Route::get('/', [LibroController::class, 'index'])->name('libros.index');
-Route::get('/libros/{libro}', [LibroController::class, 'show'])->name('libros.detalles');
+Route::get('/librosLector/{libro}', [LibroController::class, 'show'])->name('libros.detalles');
 
 
 
@@ -54,3 +55,25 @@ Route::get('/pedidos', [PedidoController::class, 'index'])->name('pedidos.index'
 Route::get('/pedidos/{id}/datos-fisico', [PedidoController::class, 'datosFisico'])->name('pedidos.datosFisico');
 Route::post('/pedidos/{id}/procesar-fisico', [PedidoController::class, 'procesarFisico'])->name('pedidos.procesarFisico');
 Route::get('/pedidos/{id}/detalles', [PedidoController::class, 'detalles'])->name('pedidos.detalles');
+
+Route::get('/admin/asignar-repartidor', [PedidoController::class, 'vistaAsignarRepartidor'])->name('admin.asignarRepartidor');
+
+
+Route::post('/admin/asignar-repartidor/{id}', [PedidoController::class, 'asignarRepartidorGuardar'])
+    ->name('pedidos.asignarRepartidorGuardar');
+    Route::get('/admin/libros', [LibroController::class, 'indexAdmin'])->name('libros.admin');
+
+   
+        Route::get('/repartidor/mis-pedidos', [PedidoController::class, 'misPedidos'])->name('repartidor.misPedidos');
+        Route::put('/repartidor/pedido/{id}/estado', [PedidoController::class, 'actualizarEstado'])->name('repartidor.actualizarEstado');
+        Route::get('/libros/{libro}', [LibroController::class, 'Mostrar'])->name('libros.detallesAdmin');
+        Route::get('/admin/usuarios', [UserController::class, 'index'])->name('admin.usuarios');
+        Route::post('/admin/usuarios/{id}/asignar-rol', [UserController::class, 'asignarRol'])->name('admin.usuarios.asignar-rol');
+        Route::get('/admin', function () {
+            return view('admin.index');
+        })->name('admin.index');
+
+        Route::post('/libros/{id}/calificar', [CalificacionController::class, 'store'])
+    ->middleware('auth')
+    ->name('libros.calificar');
+    Route::get('/escritor/resenas', [EscritorController::class, 'misResenas'])->name('escritor.resenas');

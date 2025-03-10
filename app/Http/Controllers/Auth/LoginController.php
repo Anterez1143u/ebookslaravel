@@ -22,7 +22,11 @@ class LoginController extends Controller
 
         if ($user->role_id == 3) {
             return '/escritor';
-        } else {
+        }
+            if ($user->role_id == 2) {
+            return '/admin/asignar-repartidor'; // Ruta por defecto
+        }
+        if ($user->role_id == 1) {
             return '/libros'; // Ruta por defecto
         }
     }

@@ -22,7 +22,14 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function libros()
+{
+    return $this->hasMany(Libro::class);
+}
     /**
      * The attributes that should be hidden for serialization.
      *

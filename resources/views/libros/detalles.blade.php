@@ -42,4 +42,45 @@
         </div>
     </div>
 </div>
+ <!-- Formulario para calificar -->
+ @auth
+    <div class="card mt-4">
+        <div class="card-header">Calificar este libro</div>
+        <div class="card-body">
+            <form action="{{ route('libros.calificar', $libro->id) }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="puntuacion" class="form-label">Puntuación (1-5)</label>
+                    <select name="puntuacion" id="puntuacion" class="form-control">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <option value="{{ $i }}">{{ $i }} ⭐</option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="comentario" class="form-label">Comentario</label>
+                    <textarea name="comentario" id="comentario" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+            </form>
+        </div>
+    </div>
+    @endauth
+
+    <!-- Mostrar calificaciones -->
+    <div class="mt-4">
+        <h4>Reseñas:</h4>
+        @forelse($libro->calificaciones as $calificacion)
+            <div class="card mb-2">
+                <div class="card-body">
+                    <strong>{{ $calificacion->user->name }}</strong> - 
+                    <span>{{ $calificacion->puntuacion }} ⭐</span>
+                    <p>{{ $calificacion->comentario }}</p>
+                </div>
+            </div>
+        @empty
+            <p>Aún no hay calificaciones para este libro.</p>
+        @endforelse
+    </div>
+</div>
 @endsection

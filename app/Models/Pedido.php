@@ -15,6 +15,10 @@ class Pedido extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Asegúrate de que el campo en la BD es 'user_id'
+        return $this->belongsTo(User::class, 'usuario_id'); // Asegúrate de que el campo en la BD es 'user_id'
     }
+    public function repartidor()
+{
+    return $this->belongsTo(User::class, 'repartidor_id');
+}
 }
