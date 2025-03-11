@@ -50,14 +50,12 @@
                         <td>{{ $libro->created_at->format('d/m/Y') }}</td>
                         <td>${{ number_format($libro->precio, 2) }}</td>
                         <td>
-                            <a href="{{ route('libros.edit', $libro->id) }}" class="btn btn-warning btn-sm">✏️ Editar</a>
-                            <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este libro?')">
-                                    🗑️ Eliminar
-                                </button>
-                            </form>
+                        <a href="{{ route('libros.edit', $libro->id) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        </form>
                         </td>
                     </tr>
                     @endforeach
