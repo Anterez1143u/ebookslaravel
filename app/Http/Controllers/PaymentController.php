@@ -57,7 +57,7 @@ class PaymentController extends Controller
                     'formato' => $item['formato'] // 'digital' o 'físico'
                 ]);
             }
-            if ($item['formato'] === 'fisico') {
+            if (isset($item['formato']) && strtolower($item['formato']) === 'fisico') {
                 $soloDigital = false;
             }
 

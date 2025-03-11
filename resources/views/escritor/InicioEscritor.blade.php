@@ -18,6 +18,8 @@
                     <th>Portada</th>
                     <th>Título</th>
                     <th>Categoría</th>
+                    <th>Libro</th>
+                    <th>fecha de publicacion</th>
                     <th>Precio</th>
                     <th>Acciones</th>
                 </tr>
@@ -32,9 +34,13 @@
                             No hay imagen
                         @endif
                     </td>
+                   
                     <td>{{ $libro->titulo }}</td>
                     <td>{{ $libro->categoria }}</td>
+                    <td><a href="{{ asset('storage/' .$libro->archivo_pdf) }}" download>📥 Descargar PDF</a></td>
+                    <td>{{ $libro->created_at }}</td>
                     <td>${{ number_format($libro->precio, 2) }}</td>
+
                     <td>
                         <a href="{{ route('libros.edit', $libro->id) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" class="d-inline">
