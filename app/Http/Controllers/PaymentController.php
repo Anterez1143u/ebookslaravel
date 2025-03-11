@@ -33,8 +33,8 @@ class PaymentController extends Controller
       
 
             $charge = Charge::create([
-                "amount" => intval($request->input('amount')) * 100, // ✅ Multiplica por 100
-                "currency" => "cop", // ✅ Asegura que la moneda sea COP
+                "amount" => intval($request->input('amount')) * 100, //  Multiplica por 100
+                "currency" => "cop", //Asegura que la moneda sea COP
                 "source" => $request->stripeToken,
                 "description" => "Pago de libros"
             ]);
