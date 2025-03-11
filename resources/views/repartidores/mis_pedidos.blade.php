@@ -2,14 +2,16 @@
 
 @section('contenido')
 <div class="container">
-    <h2>Mis Pedidos Asignados</h2>
-    <table class="table">
-        <thead>
+    <h2 class="mb-4">📦 Mis Pedidos Asignados</h2>
+
+    <table class="table table-striped">
+        <thead class="thead-custom">
             <tr>
                 <th>#</th>
                 <th>Cliente</th>
                 <th>Libro</th>
-                <th>Formato</th>
+                <th>Direccion</th>
+                
                 <th>Fecha de Entrega</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -26,12 +28,17 @@
                         @endforeach
                     </td>
                     <td>
-                        @foreach($pedido->detalles as $detalle)
-                            {{ $detalle->formato }} <br>
-                        @endforeach
+                      
+                            {{ $pedido->direccion_envio }} <br>
+                       
                     </td>
                     <td>{{ $pedido->fecha_entrega ?? 'No asignada' }}</td>
-                    <td>{{ $pedido->estado }}</td>
+                    <td>
+                        <span class="badge 
+                            {{ $pedido->estado == 'Entregado' ? 'bg-success' : ($pedido->estado == 'Cancelado' ? 'bg-danger' : 'bg-warning') }}">
+                            {{ $pedido->estado }}
+                        </span>
+                    </td>
                     <td>
                         <form action="{{ route('repartidor.actualizarEstado', $pedido->id) }}" method="POST">
                             @csrf
@@ -40,12 +47,17 @@
                                 <option value="Entregado">Entregado</option>
                                 <option value="Cancelado">Cancelado</option>
                             </select>
-                            <button type="submit" class="btn btn-success mt-2">Actualizar</button>
+                            <button type="submit" class="btn btn-success btn-sm mt-2">Actualizar</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Agregar paginación -->
+    <div class="d-flex justify-content-center">
+        {{ $pedidos->links() }}
+    </div>
 </div>
 @endsection

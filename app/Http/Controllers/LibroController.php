@@ -9,7 +9,7 @@ class LibroController extends Controller
 {
     public function index()
     {
-        $libros = Libro::all(); // Obtiene todos los libros de la base de datos
+        $libros = Libro::with('autor')->Simplepaginate(3);
         return view('libros.index', compact('libros'));
     }
     public function show(Libro $libro) {
@@ -17,7 +17,8 @@ class LibroController extends Controller
     }
     public function indexAdmin()
     {
-        $libros = Libro::all(); // Obtiene todos los libros de la base de datos
+        $libros = Libro::Simplepaginate(5);
+      
         return view('admin.libros', compact('libros'));
     }
     public function Mostrar(Libro $libro) {

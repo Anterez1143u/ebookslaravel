@@ -9,7 +9,7 @@
     @if(session('carrito') && count(session('carrito')) > 0)
         <div class="table-responsive">
             <table class="table table-striped">
-                <thead class="table-dark">
+                <thead class="thead-custom">
                     <tr>
                         <th>Libro</th>
                         <th>Formato</th>
@@ -53,17 +53,16 @@
         </div>
 
         <!-- Botones de acción -->
-        <div class="d-flex justify-content-between mt-4">
-            <form action="{{ route('carrito.vaciar') }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-warning">Vaciar Carrito</button>
-            </form>
-            <a href="{{ route('libros.index') }}" class="btn btn-secondary">Seguir Comprando</a>
-            <a href="{{ route('checkout') }}" class="btn btn-success">Finalizar Compra</a>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+    <form action="{{ route('carrito.vaciar') }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-warning">Vaciar Carrito</button>
+    </form>
+    <a href="{{ route('libros.index') }}" class="btn btn-secondary">Seguir Comprando</a>
+    <a href="{{ route('checkout') }}" class="btn btn-success">Finalizar Compra</a>
+</div>
 
-           
-        </div>
 
     @else
         <div class="alert alert-info text-center">

@@ -3,15 +3,15 @@
 @section('title', 'Detalles del Libro')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-detalle mt-4">
     <div class="row">
         <div class="col-md-5">
             <img src="{{asset('storage/' . $libro->portada)}}" class="img-fluid rounded shadow" alt="{{ $libro->titulo }}">
         </div>
         <div class="col-md-7">
-            <h1 class="mb-3">{{ $libro->titulo }}</h1>
+            <h1 class="text-titulo mb-3">{{ $libro->titulo }}</h1>
             <h5 class="text-muted">Autor: {{ $libro->autor->name }}</h5>
-            <p class="mt-3">{{ $libro->descripcion }}</p>
+            <h6 class="text-muted mt-3">Descripcion:{{ $libro->descripcion }}</p>
             <h4 class="mt-4 text-success">${{ number_format($libro->precio, 2) }}</h4>
 
             <form action="{{ route('carrito.agregar', ['id' => $libro->id]) }}" method="POST">
@@ -44,8 +44,8 @@
 </div>
  <!-- Formulario para calificar -->
  @auth
-    <div class="card mt-4">
-        <div class="card-header">Calificar este libro</div>
+    <div class="card-resena mt-4">
+        <div class="card-calificacion"><h4>Calificar este libro</h4></div>
         <div class="card-body">
             <form action="{{ route('libros.calificar', $libro->id) }}" method="POST">
                 @csrf

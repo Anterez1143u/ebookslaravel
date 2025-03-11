@@ -14,6 +14,9 @@ class PedidoController extends Controller
     {
         // Obtener los pedidos del usuario autenticado con los libros asociados
         $pedidos = Pedido::with('detalles.libro')->where('usuario_id', Auth::id())->get();
+        $pedidos = Pedido::with('detalles.libro')->simplePaginate(5);
+
+
 
         return view('pedidos.index', compact('pedidos'));
     }
@@ -52,7 +55,7 @@ class PedidoController extends Controller
         $pedido->nombre_cliente = $request->nombre;
         $pedido->direccion_envio = $request->direccion;
         $pedido->telefono = $request->telefono;
-        $pedido->estado = 'En proceso de envío'; // Actualiza el estado
+        $pedido->estado = 'En proceso de fabricado'; // Actualiza el estado
         $pedido->save();
 
         // Redirigir a la factura
@@ -75,6 +78,7 @@ public function asignarRepartidorGuardar(Request $request, $id)
     $pedido->fecha_entrega = $request->fecha_entrega;
     $pedido->estado = 'Asignado a Repartidor';
     $pedido->save();
+    
 
     return redirect()->route('admin.asignarRepartidor')->with('success', 'Repartidor asignado correctamente.');
 }
@@ -83,6 +87,7 @@ public function vistaAsignarRepartidor()
 {
     $pedidos = Pedido::with('user', 'detalles')->get();
     $repartidores = User::where('role_id', '4 ')->get();
+    $pedidos = Pedido::with(['user', 'detalles.libro', 'repartidor'])->Simplepaginate(10);
 
     return view('admin.asignar_repartidor', compact('pedidos', 'repartidores'));
 }
@@ -93,7 +98,8 @@ public function misPedidos()
 
     $pedidos = Pedido::where('repartidor_id', $repartidorId)
                     ->with(['user', 'detalles.libro'])
-                    ->get();
+                    ->orderBy('fecha_entrega', 'asc')
+                    ->paginate(10); // Muestra 10 pedidos por página
 
     return view('repartidores.mis_pedidos', compact('pedidos'));
 }

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Información de Envío</h2>
+<div class="container-form">
+    <h1>Información de Envío</h1>
     <form action="{{ route('pedidos.procesarFisico', $pedido->id) }}" method="POST">
         @csrf
         <div class="mb-3">

@@ -10,20 +10,22 @@ class LibrosAdminController extends Controller
 {
   
 
-    // 📌 Vista principal del escritor
+    //  Vista principal del escritor
     public function InicioEscritor()
     {
+
         $libros = Libro::where('autor_id', auth()->id())->get(); // Solo los libros del escritor autenticado
+        $libros = Libro::Simplepaginate(5);
         return view('escritor.InicioEscritor', compact('libros'));
     }
 
-    // 📌 Formulario para agregar un nuevo libro
+    //  Formulario para agregar un nuevo libro
     public function create()
     {
         return view('escritor.create');
     }
 
-    // 📌 Guardar un nuevo libro
+    //  Guardar un nuevo libro
     public function store(Request $request)
     {
         $request->validate([

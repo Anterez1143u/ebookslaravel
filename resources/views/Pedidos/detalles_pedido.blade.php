@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Detalles del Pedido #{{ $pedido->id }}</h2>
+    <h1>Detalles del Pedido #{{ $pedido->id }}</h1>
     <div class="card">
         <div class="card-body">
             <h4>📚 Libro: {{ $pedido->detalles->first()->libro->titulo }}</h4>

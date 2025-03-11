@@ -1,36 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago con Stripe</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h2>Resumen del pedido</h2>
+@section('title', 'Pago con Stripe')
 
-    <ul>
-        @foreach ($carrito as $item)
-            <li>{{ $item['titulo'] }} - {{ $item['cantidad'] }} x ${{ $item['precio'] }} = ${{ $item['cantidad'] * $item['precio'] }}</li>
-        @endforeach
-    </ul>
+@section('content')
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Resumen del Pedido</h1>
 
-    <h3>Total a pagar: ${{ $total }}</h3>
+    <div class="card-pago shadow p-4">
+        <ul class="list-group mb-3">
+        <h4 class="mb-1">Titulos:</h4>
+            @foreach ($carrito as $item)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                
+                    <div>
+                    
+                        <h6 class="mb-1">{{ $item['titulo'] }}</h6> <!-- Nombre del libro en negrita -->
+                        <small class="text-muted">{{ $item['cantidad'] }} x ${{ number_format($item['precio'], 2) }}</small> 
+                    </div>
+                </div>
+                <strong class="text-success fs-6">${{ number_format($item['cantidad'] * $item['precio'], 2) }}</strong> 
+            </li>
 
-    <form action="{{ route('payment.process') }}" method="POST">
-    @csrf
-    <input type="hidden" name="amount" value="{{ $total }}"> <!-- Agrega este input -->
-    <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        data-key="{{ config('services.stripe.key') }}"
-        data-amount="{{ $total*100 }}" 
-        data-name="Mi Tienda"
-        data-description="Pago de libros"
-        data-currency="cop">
-    </script>
-</form>
+            @endforeach
+        </ul>
 
+        <h3 class="text-end">Total a pagar: <strong>${{ number_format($total, 2) }}</strong></h3>
 
-</body>
-</html>
+        <form action="{{ route('payment.process') }}" method="POST" class="text-center mt-3">
+            @csrf
+            <input type="hidden" name="amount" value="{{ $total }}">
+            <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                data-key="{{ config('services.stripe.key') }}"
+                data-amount="{{ $total * 100 }}" 
+                data-name="Mi Tienda"
+                data-description="Pago de libros"
+                data-currency="cop">
+            </script>
+        </form>
+    </div>
+</div>
+@endsection

@@ -1,8 +1,8 @@
 @extends('layouts.escritor')
 
 @section('contenido')
-<div class="container mt-4">
-    <h2>Editar Libro</h2>
+<div class="container-form mt-4">
+    <h1>📖 Editar Libro</h1>
 
     <form action="{{ route('libros.update', $libro->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -24,9 +24,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="portada" class="form-label">Portada</label>
+            <label for="portada" class="form-label">Portada</label><br>
             @if($libro->portada)
-                <img src="{{ asset('storage/' . $libro->portada) }}" width="50">
+                <img src="{{ asset('storage/' . $libro->portada) }}" class="img-thumbnail mb-2" width="80">
             @endif
             <input type="file" name="portada" class="form-control">
         </div>
@@ -41,8 +41,9 @@
             <input type="number" name="precio" class="form-control" step="0.01" value="{{ $libro->precio }}">
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-        <a href="{{ route('escritor.inicio') }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-success">✅ Actualizar</button>
+        <a href="{{ route('escritor.inicio') }}" class="btn btn-secondary">❌ Cancelar</a>
     </form>
 </div>
+
 @endsection
