@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('role_id')->default(1)->constrained('roles'); // Relación con roles, por defecto 'Usuario'
+            $table->foreignId('role_id')->default(1)->constrained('roles');
             $table->timestamps();
         });
     }

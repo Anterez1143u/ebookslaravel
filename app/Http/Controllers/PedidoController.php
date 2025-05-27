@@ -52,7 +52,7 @@ class PedidoController extends Controller
         $pedido = Pedido::findOrFail($id);
 
         // Guardar la información de envío en el pedido
-        $pedido->nombre_cliente = $request->nombre;
+        $pedido->nombre_cliente = $request->name;
         $pedido->direccion_envio = $request->direccion;
         $pedido->telefono = $request->telefono;
         $pedido->estado = 'En proceso de fabricado'; // Actualiza el estado

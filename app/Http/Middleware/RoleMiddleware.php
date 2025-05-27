@@ -3,16 +3,22 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        if (Auth::check() && Auth::user()->role_id == $role) {
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect('/login');
         }
-        abort(403, 'Acceso denegado');
+
+        $user = Auth::user();
+
+        if (!$user->role || !in_array($user->role->name, $roles)) {
+            abort(403, 'No tienes permiso para acceder a esta página.');
+        }
+
+        return $next($request);
     }
 }

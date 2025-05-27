@@ -12,12 +12,10 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #324e3d;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    padding-top: 80px; /* Espacio para el navbar */
+    margin: 0; /* Espacio para el navbar */
 }
 
 h1 {

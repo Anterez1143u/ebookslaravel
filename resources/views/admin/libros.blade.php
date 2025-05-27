@@ -21,7 +21,7 @@
                         <td>{{ $libro->titulo }}</td>
                         <td>{{ $libro->autor->name }}</td>
                         <td>
-                            <a href="{{ route('libros.detallesAdmin', $libro->id) }}" class="btn btn-success w-100">
+                            <a href="{{ route('libros.detalles', $libro->id) }}" class="btn btn-success w-100">
                                 Ver Detalles
                             </a>
                         </td>

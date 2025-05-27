@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
+use App\Models\Libro;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -21,15 +21,25 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
+
+    /**
+     * Relación con el modelo Role.
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Relación con el modelo Libro.
+     */
     public function libros()
-{
-    return $this->hasMany(Libro::class);
-}
+    {
+        return $this->hasMany(Libro::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,7 +51,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */

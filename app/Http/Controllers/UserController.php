@@ -11,8 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $usuarios = User::Simplepaginate(5);
-      
+        $usuarios = User::simplePaginate(5);
         $roles = Role::all(); // Obtener todos los roles disponibles
         return view('admin.usuarios.index', compact('usuarios', 'roles'));
     }

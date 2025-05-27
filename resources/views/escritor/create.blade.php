@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('libros.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form action="{{ route('libros.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row">

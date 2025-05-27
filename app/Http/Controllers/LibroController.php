@@ -18,7 +18,7 @@ class LibroController extends Controller
     public function indexAdmin()
     {
         $libros = Libro::Simplepaginate(5);
-      
+    
         return view('admin.libros', compact('libros'));
     }
     public function Mostrar(Libro $libro) {

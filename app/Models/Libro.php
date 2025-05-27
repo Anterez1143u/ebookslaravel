@@ -15,6 +15,7 @@ class Libro extends Model {
     public function autor() {
         return $this->belongsTo(User::class, 'autor_id');
     }
+    
     public function calificaciones()
 {
     return $this->hasMany(Calificacion::class);

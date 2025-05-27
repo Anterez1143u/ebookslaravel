@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator; 
 
 class AuthController extends Controller
 {
@@ -27,7 +26,7 @@ class AuthController extends Controller
             'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
 
-        // Creación del usuario con rol 1 por defecto
+        // Creación del usuario con rol 1 por defecto (Usuario)
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -40,33 +39,35 @@ class AuthController extends Controller
 
     // Iniciar sesión
     public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        $user = Auth::user();
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
 
-        // Verifica si el usuario tiene el rol de escritor (rol = 3)
-        if ($user->role_id == 3) {
-            return redirect()->route('escritor.inicio'); // Redirige a InicioEscritor
+            // Redirección según el rol
+            if ($user->role_id == 3) {
+                return redirect()->route('escritor.inicio'); // Escritor
+            }
+            if ($user->role_id == 2) {
+                return redirect()->route('admin.index'); // Analista (ajusta si tienes otra ruta para analista)
+            }
+            if ($user->role_id == 1) {
+                return redirect()->route('libros'); // Usuario
+            }
+            if ($user->role_id == 4) {
+                return redirect()->route('repartidor.misPedidos'); // Repartidor
+            }
+            if ($user->role_id == 5) {
+                return redirect()->route('admin.index'); // Admin
+            }
         }
-        if ($user->role_id == 2) {
-            return redirect()->route('admin.index'); // Redirige a InicioEscritor
-        }
-        if ($user->role_id == 4) {
-            return redirect()->route('repartidor.misPedidos'); // Redirige a InicioEscritor
-        }
-        if ($user->role_id == 1) {
-        return redirect()->route('libros'); 
-        }// Redirige a la página de libros por defecto
+
+        return back()->with('error', 'Credenciales incorrectas');
     }
-
-    return back()->with('error', 'Credenciales incorrectas');
-}
-
 
     // Cerrar sesión
     public function logout()

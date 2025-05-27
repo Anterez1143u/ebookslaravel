@@ -8,9 +8,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id(); // Este campo es autoincremental automáticamente
+            $table->id();
             $table->string('name')->unique();
-           
             $table->timestamps();
         });
 
@@ -18,8 +17,9 @@ return new class extends Migration {
         \Illuminate\Support\Facades\DB::table('roles')->insert([
             ['id' => 1, 'name' => 'Usuario'],
             ['id' => 2, 'name' => 'Analista'],
-            ['id' => 3, 'name' => 'Escritor']
-          
+            ['id' => 3, 'name' => 'Escritor'],
+            ['id' => 4, 'name' => 'Repartidor'],
+            ['id' => 5, 'name' => 'Admin'],
         ]);
     }
 
